@@ -1,0 +1,188 @@
+/* General layout */
+.sheet {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+}
+
+/* Headers */
+h1,
+h2,
+h3 {
+  font-family: victor-mono;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+h1 {
+  font-family: victor-mono-light;
+  margin-bottom: 16px;
+  font-size: 40px;
+  text-transform: uppercase;
+}
+
+/** Punch card images */
+.punchcard {
+  height: 80px;
+}
+/** Banner **/
+.banner {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  text-align: center;
+}
+/** Stamps **/
+.stamp {
+  font-family: victor-mono-italic;
+  font-size: 80px;
+  opacity: 50%;
+  border: 4px solid;
+  border-radius: 20px;
+  padding: 16px;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: rotate(-15deg) translate(-50%, -50%);
+}
+.green.stamp {
+  color: green;
+  border-color: green;
+  letter-spacing: -5px;
+}
+
+/** Grid and column layouts */
+.grid {
+  display: grid;
+}
+.item {
+  min-height: 1em;
+}
+.col1 {
+  grid-column: 1;
+}
+.col2 {
+  grid-column: 2;
+}
+.col3 {
+  grid-column: 3;
+}
+.col1-2 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+.col3-4 {
+  grid-column-start: 3;
+  grid-column-end: 5;
+}
+.col4 {
+  grid-column: 4;
+}
+.col5 {
+  grid-column: 5;
+}
+
+/** Other modifiers */
+.important {
+  font-weight: 800;
+  padding-bottom: 1em;
+}
+.strikethrough {
+  text-decoration: line-through;
+}
+
+/* Invoice details section */
+.details {
+  margin-bottom: 40px;
+}
+.details .col1,
+.details .col2,
+.details .col3,
+.details .col4 {
+  padding-right: 8px;
+  padding-left: 8px;
+  padding-top: 4px;
+}
+
+/** Footer section **/
+footer {
+  margin-top: auto;
+  bottom: 20px;
+}
+footer .item {
+  margin: 4px;
+}
+
+/* Company information section */
+.company {
+  font-family: victor-mono;
+  text-align: left;
+  margin-bottom: 8px;
+}
+.company img {
+  margin-bottom: 8px;
+}
+.company h4,
+.company p {
+  margin-top: 0px;
+  margin-bottom: 8px;
+}
+
+/** Calulated sums sections */
+.sums {
+  text-align: right;
+  border: 1px solid black;
+}
+.sums p {
+  font-family: victor-mono;
+  padding-right: 8px;
+}
+.sums .important {
+  font-family: victor-mono;
+  padding-bottom: 0;
+}
+
+/* Invoice specifications section */
+.specifications .header {
+  font-weight: 800;
+  text-align: left;
+}
+.specifications .item.col1,
+.specifications .item.col2,
+.specifications .item.col3,
+.specifications .item.col4 {
+  padding-top: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-right: 0.5px solid black;
+}
+.specifications .item.col4,
+.specifications .item.col5 {
+  text-align: right;
+  padding-top: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.specifications .item.col2,
+.specifications .item.col4,
+.specifications .item.col5 {
+  text-align: right;
+}
+.specifications .item.col1 {
+  border-left: 1px solid black;
+}
+.specifications .item.col5 {
+  border-right: 1px solid black;
+}
+.specifications .seperator {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  height: 0px;
+}
+.specifications .top.seperator {
+  border-top: 1px solid black;
+}
+.specifications .bottom.seperator {
+  border-bottom: 1px solid black;
+}

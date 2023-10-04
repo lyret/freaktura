@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{%if faktura.betald %}[Betald]{%endif%}{{ fluff.titel }} {{ faktura.nr }} från {{ avsandare.company }}</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/lib/paper.min.css" rel="stylesheet" />
+    <style>
+    /* Define page size */
+    @page {
+      size: A4;
+    }
+    /* Import fonts */
+    @font-face {
+      font-family: victor-mono;
+      src: url(/fonts/VictorMono-Regular.ttf);
+    }
+    @font-face {
+      font-family: victor-mono-light;
+      src: url(/fonts/VictorMono-Light.ttf);
+    }
+    @font-face {
+      font-family: victor-mono-italic;
+      src: url(/fonts/VictorMono-Italic.ttf);
+    }
+    </style>
+    <link href="/index.css" rel="stylesheet" />
+    <script src="/index.js"></script>
+  </head>
+  <body class="A4">
+    <section class="sheet padding-10mm">
+      <h2>{{ faktura.projekt }}</h2>
+      <div class="banner">
+        <img class="punchcard" data-text="{{fluff.halkort}}" alt="Hålkortsbild med texten '{{fluff.halkort}}' i binärkod" />
+      </div>
+      <h1>{{ fluff.titel }}</h1>
+      <div class="details grid">
+        <div class="item col1">Fakturanummer:</div>
+        <div class="important item col2">{{faktura.nr}}</div>
+        <div class="item col3">Projekt:</div>
+        <div class="important item col4">{{faktura.projekt}}</div>
+        <div class="item col1">Faktureringsdatum:</div>
+        <div class="item col2">{{faktura.faktureringsdatum}}</div>
+        <div class="item col3">Er referens:</div>
+        <div class="item col4">{{faktura.referens}}</div>
+        <div class="item col1">Leveransdatum:</div>
+        <div class="item col2">{{faktura.leveransdatum}}</div>
+        <div class="item col1">Betalningsvilkor:</div>
+        <div class="item col2">{{faktura.dagarattbetala}} dagar</div>
+        <div class="item col4">{{faktura.adress1}}</div>
+        <div class="item col1">Förfallodatum:</div>
+        <div class="item col2">{{kalkyl.forfallodatum}}</div>
+        <div class="item col4" >{{faktura.adress2}}</div>
+        <div class="item col1">Dröjesmålsränta:</div>
+        <div class="item col2">{{kalkyl.drojesmalsranta}}</div>
+        <div class="item col4" >{{faktura.adress3}}</div>
+        {%if faktura.adress4 %}
+          <div class="item col4" >{{faktura.adress4}}</div>
+        {%endif%}
+      </div>
+      <div class="specifications grid">
+        <div class="header col1">Specifikation</div>
+        <div class="header col2">Antal</div>
+        <div class="header col3">Enhet</div>
+        <div class="header col4">Kostnad {{ berakning.valuta }}</div>
+        <div class="header col5">Summa {{ berakning.valuta }}</div>
+        <div class="top seperator"></div>
+        {% for rad in rader %}
+          <div class="item col1">{{ rad.beskrivning }}</div>
+          <div class="item col2">{{ rad.antal }}</div>
+          <div class="item col3">{{ rad.enhet }}</div>
+          <div class="item col4">{{ rad.kostnad }}</div>
+          <div class="item col5">{{ rad.summa }}</div>
+        {% endfor %}
+        {% for i in (0..8) %}
+          {% if i > rader.length  %}
+            <div class="item col1"></div>
+            <div class="item col2"></div>
+            <div class="item col3"></div>
+            <div class="item col4"></div>
+            <div class="item col5"></div>
+          {% endif %}
+        {% endfor %}
+        <div class="bottom seperator"></div>
+      </div>
+      <footer class="grid">
+        <div class="company col1-2">
+          <img class="punchcard" data-text="{{avsandare.halkort}}" alt="Hålkortsbild med texten '{{avsandare.halkort}}' i binärkod" />
+          <h4>{{avsandare.company}}</h4>
+        </div>
+        <div class="col4 sums">
+          <p>Summa: {{ kalkyl.summa }}</p>
+          <p>{{ kalkyl.momssats }} Moms: {{ kalkyl.moms }}</p>
+          {%if faktura.betald %}
+            <p class="strikethrough important">Att betala: {{ kalkyl.slutsumma }}</p>
+          {%else%}
+            <p class="important">Att betala: {{ kalkyl.slutsumma }}</p>
+          {%endif%}
+        </div>
+        <div class="company col1-2">
+          <p>Godkänd för F-skatt</p>
+        </div>
+        <div class="important value item col1-2">Kontakt</div>
+        <div class="important value item col3-4">Betalningsalternativ</div>
+        <div class="item col1">Telefon:</div>
+        <div class="item value col2">{{avsandare.telefon}}</div>
+        <div class="item col3">Swish:</div>
+        <div class="item col4 value">{{avsandare.swish}}</div>
+        <div class="item col1">E-post:</div>
+        <div class="item value col2">{{avsandare.epost}}</div>
+        <div class="item col3">Bankkonto:</div>
+        <div class="item col4 value">{{avsandare.bankkonto}}</div>
+        <div class="item col1">Hemsida:</div>
+        <div class="item value col2">{{avsandare.webbplats}}</div>
+        <div class="item col3">IBAN:</div>
+        <div class="item col4 value">{{avsandare.iban}}</div>
+        <div class="item col1">Adress:</div>
+        {%if avsandare.adress1 %}
+        <div class="item value col2">{{avsandare.adress1}}</div>
+        {%endif%}
+        {%if avsandare.adress2 %}
+          <div class="item value col2">{{avsandare.adress2}}</div>
+        {%endif%}
+        {%if avsandare.adress3 %}
+          <div class="item value col2">{{avsandare.adress3}}</div>
+        {%endif%}
+        {%if avsandare.adress4 %}
+          <div class="item value col2">{{avsandare.adress4}}</div>
+        {%endif%}
+        <div class="item col3">Momsreg.nr (VAT):</div>
+        <div class="item col4s value">{{avsandare.momsregistreringsnr}}</div>
+      </footer>
+      {%if faktura.betald %}<div class="green stamp">Betald</div> {%endif%}
+    </section>
+  </body>
+</html>

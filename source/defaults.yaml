@@ -1,0 +1,38 @@
+faktura:
+  betald: false
+  nr: SAKNAS
+  faktureringsdatum: SAKNAS
+  leveransdatum: SAKNAS
+  dagarattbetala: 30
+  projekt: SAKNAS
+  referens: SAKNAS
+  adress1: SAKNAS
+  adress2:
+  adress3:
+  adress4:
+rader:
+  - specifikation: SAKNAS
+    antal: 1
+    antalsenhet: h
+    kostnad: 1100
+fluff:
+  titel: Faktura
+  halkort: Arbete är flykt
+berakning:
+  drojesmalsranta: 0.085
+  momssats: 0.25
+  valuta: SEK
+avsandare:
+  company: Viktor Lyresten Enskild Firma
+  halkort: lyret
+  momsregistreringsnr: SE19900731175701
+  telefon: 079-357 72 07
+  epost: viktor@lyresten.se
+  webbplats: lyresten.se
+  adress1: Kullagatan 6
+  adress2: 514 92 Uddebo
+  adress3:
+  adress4:
+  swish: 079-357 72 07
+  bankkonto: SEB 5694 01 896 61
+  iban: SE5550000000056940189661
