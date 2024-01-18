@@ -2,3 +2,5 @@ node_modules
 invoice.yaml
 *.pdf
 .DS_Store
+history
+render/index.html

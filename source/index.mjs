@@ -1,4 +1,5 @@
 import * as FS from "node:fs/promises";
+import * as FSE from "fs-extra";
 import Puppeteer from "puppeteer";
 import Yaml from "yaml";
 import Liquid from "liquidjs";
@@ -52,10 +53,23 @@ const kalkyl = {
 
 // Output the invoice as html to the render folder
 const engine = new Liquid.Liquid();
-const tpl = await engine.parseFile("./source/template.liquid");
+const tpl = await engine.parseFile("./source/invoice.liquid");
 
 const output = await engine.render(tpl, { ...invoice, kalkyl });
 await FS.writeFile("./render/index.html", output);
+
+// Output the invoice as yaml to the history folder
+FSE.ensureDir("history");
+let i = 1;
+while (i < 100) {
+  const path = `./history/${invoice.faktura.nr}-${i}.yaml`;
+  console.log(path);
+  if (!(await FSE.exists(path))) {
+    await FS.writeFile(path, Yaml.stringify(invoice));
+    break;
+  }
+  i++;
+}
 
 // Serve the render result
 const server = new Express();
@@ -68,7 +82,7 @@ const browser = await Puppeteer.launch({
   headless: "new",
 });
 const page = await browser.newPage();
-await page.goto(`http://localhost:${PORT}`, {
+await page.goto(`http://localhost:${PORT}/index.html`, {
   waitUntil: "networkidle0",
 });
 await page.pdf({
